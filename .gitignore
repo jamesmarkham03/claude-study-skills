@@ -1,0 +1,11 @@
+# Private notes and secrets
+CLAUDE.local.md
+.env
+.env.*
+
+# Python
+__pycache__/
+
+# Never commit real course material (lecture notes, past tests, assignments):
+# it belongs to the instructor. Only original examples go in examples/.
+*.pptx

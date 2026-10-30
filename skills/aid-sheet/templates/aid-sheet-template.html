@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>COURSE TEST Formula Sheet</title>
+<style>
+  @page { size: letter; margin: 7mm; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #fff; color: #111; font: 11.1pt/1.33 "Segoe UI", Arial, sans-serif; }
+  .page { columns: 2; column-gap: 4mm; column-fill: balance; height: 264mm; }
+  .page + .page { break-before: page; }
+  .top { column-span: all; display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1.2pt solid #111; margin-bottom: 1.6mm; padding-bottom: .6mm; }
+  .top b { font-size: 11.5pt; } .top span { color: #555; font-size: 8.6pt; }
+  .sec { break-inside: avoid-column; border: .7pt solid var(--c); border-radius: 2mm; margin: 0 0 2mm; overflow: hidden; }
+  .sec h2 { margin: 0; background: var(--c); color: #fff; font-size: 11.8pt; padding: .7mm 2mm; display: flex; justify-content: space-between; }
+  .sec h2 small { font-weight: 400; opacity: .9; font-size: 8.4pt; }
+  .body { padding: 1.2mm 2mm 1mm; }
+  p { margin: 0 0 .9mm; }
+  .k { font-weight: 700; color: var(--c); }
+  .eq { font-family: "Cambria Math", Cambria, "Times New Roman", serif; font-size: 11.6pt; }
+  .tip { color: #b00020; font-weight: 600; }
+  table { border-collapse: collapse; width: 100%; margin: .6mm 0 1mm; table-layout: fixed; }
+  td, th { border: .5pt solid #bbb; padding: .3mm .5mm; text-align: center; font-size: 9.6pt; }
+  th { background: #f0f0f0; width: 13mm; }
+  .s1 { --c: #1f5f8b; } .s2 { --c: #2e7d4f; } .s3 { --c: #6a3d9a; } .s4 { --c: #00707a; }
+  .s5 { --c: #8a5a00; } .s6 { --c: #a33a3a; } .s7 { --c: #b5541b; } .s8 { --c: #444; } .s9 { --c: #00707a; }
+</style>
+</head>
+<body>
+
+<!-- SIDE 1. Sections are numbered ①–⑨ across both sides so you can say "it's in ⑦". -->
+<div class="page">
+<div class="top"><b>COURSE TEST · Side 1: THEME</b><span>notes §X–Y · pp. A–B</span></div>
+
+<div class="sec s1"><h2>① Section title <small>pp. X–Y</small></h2><div class="body">
+<p><span class="k">Label:</span> <span class="eq">formula</span> (one line of when/why to use it). <span class="tip">Trap to avoid.</span></p>
+</div></div>
+
+<div class="sec s2"><h2>② Section with a lookup table <small>pp. X–Y</small></h2><div class="body">
+<table><tr><th>x</th><td>1</td><td>2</td></tr><tr><th>f(x)</th><td>…</td><td>…</td></tr></table>
+</div></div>
+
+<div class="sec s8"><h2>Test strategy</h2><div class="body">
+<p>Question order, time per question, what to write when stuck, assumptions to state.</p>
+</div></div>
+</div>
+
+<!-- SIDE 2 -->
+<div class="page">
+<div class="top"><b>COURSE TEST · Side 2: THEME</b><span>notes §X–Y</span></div>
+<div class="sec s5"><h2>⑤ Section title <small>pp. X–Y</small></h2><div class="body">
+<p><span class="k">Label:</span> <span class="eq">formula</span></p>
+</div></div>
+</div>
+
+</body>
+</html>

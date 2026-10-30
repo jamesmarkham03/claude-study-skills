@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COURSE Bridge Set NN: TOPIC</title>
+<style>
+  :root {
+    --bg: #fbfaf7; --card: #ffffff; --ink: #1d1d1b; --muted: #5f5e58; --line: #e3e0d8;
+    --accent: #1f5f8b; --l1: #2e7d4f; --l2: #1f5f8b; --l3: #8a5a00; --l4: #a33a3a;
+    --hint: #f4f1e8; --sol: #eef4f8; --code: #f1efe9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #161614; --card: #1f1f1c; --ink: #ecebe6; --muted: #a8a69e; --line: #34332f;
+      --accent: #7fb6dc; --l1: #6cc28f; --l2: #7fb6dc; --l3: #e0b25a; --l4: #e88080;
+      --hint: #26251f; --sol: #1c252c; --code: #2a2925;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 32px 16px 80px; }
+  h1 { font-size: 1.7rem; margin: 0 0 4px; }
+  h2 { font-size: 1.3rem; margin: 48px 0 8px; padding-top: 12px; border-top: 2px solid var(--line); }
+  h3 { font-size: 1.05rem; margin: 0; }
+  .sub { color: var(--muted); margin: 0 0 24px; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: .95rem; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; font-size: .85rem; text-transform: uppercase; letter-spacing: .03em; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; margin: 14px 0; }
+  .head { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; margin-bottom: 6px; }
+  .tag { font-size: .75rem; font-weight: 700; padding: 2px 8px; border-radius: 99px; color: #fff; }
+  .L1 { background: var(--l1); } .L2 { background: var(--l2); } .L3 { background: var(--l3); } .L4 { background: var(--l4); }
+  .meta { color: var(--muted); font-size: .85rem; }
+  details { margin-top: 10px; border-radius: 8px; padding: 6px 12px; }
+  details.hint { background: var(--hint); }
+  details.sol { background: var(--sol); }
+  summary { cursor: pointer; font-weight: 600; color: var(--accent); }
+  .box { background: var(--card); border-left: 4px solid var(--accent); padding: 12px 16px; border-radius: 6px; margin: 16px 0; }
+  .eq { font-family: "Cambria Math", "STIX Two Math", Georgia, serif; background: var(--code); padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+  .block { display: block; white-space: normal; padding: 8px 12px; margin: 8px 0; }
+  ol, ul { padding-left: 22px; }
+  li { margin: 3px 0; }
+  .check { color: var(--l1); font-weight: 600; }
+  @media print {
+    details { display: block; } details > summary { display: block; list-style: none; } /* keep the "Hint" / "Solution" labels on paper */
+    details > summary::-webkit-details-marker { display: none; }
+    details:not([open]) > *:not(summary) { display: block; }
+    .card { break-inside: avoid; }
+  }
+  .learn { background: var(--card); border: 1px solid var(--line); border-left: 5px solid var(--l1); border-radius: 10px; padding: 14px 18px; margin: 14px 0 18px; }
+  .learn h3 { margin: 0 0 6px; color: var(--l1); }
+  .learn ol { margin: 4px 0; }
+  .prio { font-size: .75rem; font-weight: 700; padding: 2px 8px; border-radius: 99px; border: 1px solid currentColor; margin-left: 6px; }
+  .must { color: var(--l4); } .should { color: var(--l3); } .skip { color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+
+<h1>COURSE Bridge Set NN: TOPIC</h1>
+<p class="sub">What this set covers and which test/assignment it builds toward. Every numeric answer is checked by <code>verify_NN_topic.py</code>.</p>
+
+<div class="box">
+  <strong>How to use this.</strong> Each block: <strong>read "Learn it" → (notes pages) → problems in order → the homework/test questions it unlocks.</strong> Work on paper; open a hint only after ~5 minutes stuck; open the solution only once you have an answer.<br>
+  <strong>Levels:</strong> <span class="tag L1">L1</span> warm-up · <span class="tag L2">L2</span> two steps or a twist · <span class="tag L3">L3</span> set it up yourself · <span class="tag L4">L4</span> test-style.<br>
+  <strong>Skip rule:</strong> both L2s right without hints → jump to the L4.
+</div>
+
+<h2 id="pattern">What the past tests ask</h2>
+<table>
+  <tr><th>Question type</th><th>Test A</th><th>Test B</th><th>Block</th></tr>
+  <tr><td>Example type</td><td>✓</td><td></td><td><a href="#A">A</a> <span class="prio must">Must</span></td></tr>
+</table>
+
+<h2 id="plan">Study plan (X hours)</h2>
+<table>
+  <tr><th>When</th><th>Do</th><th>Time</th></tr>
+  <tr><td><strong>Day 1</strong></td><td>Block A: Learn it → A1–A6</td><td>~1.5 h</td></tr>
+</table>
+
+<!-- ============================ BLOCK A ============================ -->
+<h2 id="A">Block A: TITLE <span class="prio must">Must</span></h2>
+<p class="meta">Notes pp. X–Y (§Z). Unlocks: assignment Qn, past-test question type.</p>
+
+<div class="learn">
+  <h3>Learn it</h3>
+  <p><strong>Big idea.</strong> Two to four plain-English sentences.</p>
+  <p><strong>Formulas.</strong> <span class="eq">formula</span>: symbols defined (p. X).</p>
+  <p><strong>Worked example.</strong> Written like a full-marks answer.</p>
+  <p><strong>Traps.</strong> The 2–3 mistakes that cost marks.</p>
+  <p><strong>Recipe.</strong></p>
+  <ol><li>Step one</li><li>Step two</li></ol>
+</div>
+
+<div class="card">
+  <div class="head"><span class="tag L1">L1</span><h3>A1. Title</h3><span class="meta">skill · p. X</span></div>
+  Problem statement.
+  <details class="hint"><summary>Hint</summary>A nudge, not the method.</details>
+  <details class="sol"><summary>Solution</summary>
+    Why this method, each step, units. <span class="check">Check:</span> sanity check.
+  </details>
+</div>
+
+</main>
+</body>
+</html>

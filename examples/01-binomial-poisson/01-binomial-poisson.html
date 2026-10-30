@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sample Bridge Set 01: Binomial and Poisson</title>
+<style>
+  :root {
+    --bg: #fbfaf7; --card: #ffffff; --ink: #1d1d1b; --muted: #5f5e58; --line: #e3e0d8;
+    --accent: #1f5f8b; --l1: #2e7d4f; --l2: #1f5f8b; --l3: #8a5a00; --l4: #a33a3a;
+    --hint: #f4f1e8; --sol: #eef4f8; --code: #f1efe9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #161614; --card: #1f1f1c; --ink: #ecebe6; --muted: #a8a69e; --line: #34332f;
+      --accent: #7fb6dc; --l1: #6cc28f; --l2: #7fb6dc; --l3: #e0b25a; --l4: #e88080;
+      --hint: #26251f; --sol: #1c252c; --code: #2a2925;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 32px 16px 80px; }
+  h1 { font-size: 1.7rem; margin: 0 0 4px; }
+  h2 { font-size: 1.3rem; margin: 48px 0 8px; padding-top: 12px; border-top: 2px solid var(--line); }
+  h3 { font-size: 1.05rem; margin: 0; }
+  .sub { color: var(--muted); margin: 0 0 24px; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: .95rem; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; font-size: .85rem; text-transform: uppercase; letter-spacing: .03em; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; margin: 14px 0; }
+  .head { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; margin-bottom: 6px; }
+  .tag { font-size: .75rem; font-weight: 700; padding: 2px 8px; border-radius: 99px; color: #fff; }
+  .L1 { background: var(--l1); } .L2 { background: var(--l2); } .L3 { background: var(--l3); } .L4 { background: var(--l4); }
+  .meta { color: var(--muted); font-size: .85rem; }
+  details { margin-top: 10px; border-radius: 8px; padding: 6px 12px; }
+  details.hint { background: var(--hint); }
+  details.sol { background: var(--sol); }
+  summary { cursor: pointer; font-weight: 600; color: var(--accent); }
+  .box { background: var(--card); border-left: 4px solid var(--accent); padding: 12px 16px; border-radius: 6px; margin: 16px 0; }
+  .eq { font-family: "Cambria Math", "STIX Two Math", Georgia, serif; background: var(--code); padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+  .block { display: block; white-space: normal; padding: 8px 12px; margin: 8px 0; }
+  ol, ul { padding-left: 22px; }
+  li { margin: 3px 0; }
+  .check { color: var(--l1); font-weight: 600; }
+  @media print {
+    details { display: block; } details > summary { display: block; list-style: none; } /* keep the "Hint" / "Solution" labels on paper */
+    details > summary::-webkit-details-marker { display: none; }
+    details:not([open]) > *:not(summary) { display: block; }
+    .card { break-inside: avoid; }
+  }
+  .learn { background: var(--card); border: 1px solid var(--line); border-left: 5px solid var(--l1); border-radius: 10px; padding: 14px 18px; margin: 14px 0 18px; }
+  .learn h3 { margin: 0 0 6px; color: var(--l1); }
+  .learn ol { margin: 4px 0; }
+  .prio { font-size: .75rem; font-weight: 700; padding: 2px 8px; border-radius: 99px; border: 1px solid currentColor; margin-left: 6px; }
+  .must { color: var(--l4); } .should { color: var(--l3); } .skip { color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Sample Bridge Set 01: Binomial and Poisson</h1>
+<p class="sub">An example of what the <code>bridge-problems</code> skill produces, for a <strong>fictional</strong> intro-probability course (every problem is original). It builds toward a midterm's "count the successes" and "count the events" questions. Every numeric answer is checked by <code>verify_01_binomial_poisson.py</code>.</p>
+
+<div class="box">
+  <strong>How to use this.</strong> Each block: <strong>read "Learn it" → problems in order → the past-test questions it unlocks.</strong> Work on paper; open a hint only after ~5 minutes stuck; open the solution only once you have an answer.<br>
+  <strong>Levels:</strong> <span class="tag L1">L1</span> warm-up · <span class="tag L2">L2</span> two steps or a twist · <span class="tag L3">L3</span> set it up yourself · <span class="tag L4">L4</span> test-style.<br>
+  <strong>Skip rule:</strong> both L2s right without hints → jump to the L4.
+</div>
+
+<h2 id="pattern">What the (fictional) past tests ask</h2>
+<table>
+  <tr><th>Question type</th><th>Midterm 2024</th><th>Midterm 2025</th><th>Assignment 2</th><th>Block</th></tr>
+  <tr><td>Binomial: "exactly k" / "at least one" / mean and variance</td><td>✓</td><td>✓</td><td>✓</td><td><a href="#A">A</a> <span class="prio must">Must</span></td></tr>
+  <tr><td>Poisson: rate per interval, scale the rate</td><td>✓</td><td>✓</td><td></td><td><a href="#B">B</a> <span class="prio must">Must</span></td></tr>
+  <tr><td>Binomial → Poisson approximation</td><td></td><td>✓</td><td></td><td><a href="#B4">B4</a> <span class="prio should">Should</span></td></tr>
+  <tr><td>Geometric: "first success on trial k"</td><td>✓</td><td></td><td></td><td>not in this sample <span class="prio skip">Skip-if-short</span></td></tr>
+</table>
+
+<h2 id="plan">Study plan (2 hours)</h2>
+<table>
+  <tr><th>When</th><th>Do</th><th>Time</th></tr>
+  <tr><td><strong>Tonight</strong></td><td>Block A: Learn it → A1–A5 (skip rule after A3)</td><td>~1 h</td></tr>
+  <tr><td><strong>Tomorrow</strong></td><td>Block B: Learn it → B1–B4, then one past midterm under a timer and mark it</td><td>~1 h</td></tr>
+</table>
+
+<!-- ============================ BLOCK A ============================ -->
+<h2 id="A">Block A: Binomial <span class="prio must">Must</span></h2>
+<p class="meta">Unlocks: every "exactly / at least / expected number of successes" question.</p>
+
+<div class="learn">
+  <h3>Learn it</h3>
+  <p><strong>Big idea.</strong> You repeat the same yes/no trial <em>n</em> times, each trial succeeds with the same probability <em>p</em>, and the trials don't affect each other. The binomial distribution tells you how likely each total number of successes is, like hits in a hitter's at-bats.</p>
+  <p><strong>Formulas.</strong> <span class="eq">P(X = k) = C(n, k) · p<sup>k</sup> · (1 − p)<sup>n − k</sup></span>, where C(n, k) = n! / (k!(n − k)!) counts which trials succeed. <span class="eq">E[X] = np</span>, <span class="eq">Var(X) = np(1 − p)</span>.</p>
+  <p><strong>Worked example.</strong> A 25% free-throw shooter takes 3 shots. P(exactly 1 make) = C(3, 1) · 0.25<sup>1</sup> · 0.75<sup>2</sup> = 3 × 0.25 × 0.5625 = <strong>0.4219</strong>.</p>
+  <p><strong>Traps.</strong> (1) Forgetting C(n, k): there are several orders the successes can come in. (2) "At least one" by adding up many terms instead of 1 − P(none). (3) Using the SD where the variance is asked for (or the reverse).</p>
+  <p><strong>Recipe.</strong></p>
+  <ol><li>Check: fixed n, two outcomes, same p, independent.</li><li>Write n, p and which k values the question wants.</li><li>"At least" → use the complement if it has fewer terms.</li><li>Plug in, then sanity-check (0 ≤ P ≤ 1; mean np is reasonable).</li></ol>
+</div>
+
+<div class="card">
+  <div class="head"><span class="tag L1">L1</span><h3>A1. Two hits</h3><span class="meta">binomial pmf</span></div>
+  A .300 hitter gets 4 at-bats. Treat at-bats as independent. What's the probability of exactly 2 hits?
+  <details class="hint"><summary>Hint</summary>n = 4, p = 0.3, k = 2. How many orders can 2 hits come in?</details>
+  <details class="sol"><summary>Solution</summary>
+    Binomial with n = 4, p = 0.3. P(X = 2) = C(4, 2) · 0.3² · 0.7² = 6 × 0.09 × 0.49 = <strong>0.2646</strong>.
+    <span class="check">Check:</span> the mean is 1.2 hits, so 2 hits should be fairly likely but under 50%. It is.
+  </details>
+</div>
+
+<div class="card">
+  <div class="head"><span class="tag L2">L2</span><h3>A2. At least one hit</h3><span class="meta">complement</span></div>
+  Same hitter, 4 at-bats. What's the probability he gets at least one hit?
+  <details class="hint"><summary>Hint</summary>"At least one" has four cases. Its opposite has one.</details>
+  <details class="sol"><summary>Solution</summary>
+    P(X ≥ 1) = 1 − P(X = 0) = 1 − 0.7⁴ = 1 − 0.2401 = <strong>0.7599</strong>.
+    <span class="check">Check:</span> adding P(1) + P(2) + P(3) + P(4) gives the same number, with four times the work.
+  </details>
+</div>
+
+<div class="card">
+  <div class="head"><span class="tag L2">L2</span><h3>A3. A week of at-bats</h3><span class="meta">mean and SD</span></div>
+  Over a 20-at-bat week, what's his expected number of hits, and the standard deviation?
+  <details class="hint"><summary>Hint</summary>Two formulas, then one square root.</details>
+  <details class="sol"><summary>Solution</summary>
+    E[X] = np = 20 × 0.3 = <strong>6 hits</strong>. Var(X) = np(1 − p) = 20 × 0.3 × 0.7 = 4.2, so SD = √4.2 ≈ <strong>2.05</strong> hits.
+    <span class="check">Check:</span> the SD is in hits, like the mean. Variance is in hits², so it isn't the spread you'd quote.
+  </details>
+</div>
+
+<div class="card">
+  <div class="head"><span class="tag L3">L3</span><h3>A4. Strikes in a sequence</h3><span class="meta">set it up yourself</span></div>
+  A pitcher throws strikes on 62% of pitches. In a 5-pitch sequence, what's the chance at least 3 are strikes?
+  <details class="hint"><summary>Hint</summary>Here the complement has 3 terms too, so just add k = 3, 4, 5.</details>
+  <details class="sol"><summary>Solution</summary>
+    n = 5, p = 0.62. P(3) = 10 × 0.62³ × 0.38² = 0.3441; P(4) = 5 × 0.62⁴ × 0.38 = 0.2808; P(5) = 0.62⁵ = 0.0916. Sum = <strong>0.7165</strong>.
+    <span class="check">Check:</span> the mean is 3.1 strikes, so "at least 3" should be more likely than not. It is.
+  </details>
+</div>
+
+<div class="card">
+  <div class="head"><span class="tag L4">L4</span><h3>A5. First-pitch strikes (test-style)</h3><span class="meta">all of block A</span></div>
+  A reliever throws a first-pitch strike to each batter with probability 0.6, independently. He faces 8 batters.
+  <ol type="a"><li>P(exactly 5 first-pitch strikes)?</li><li>P(at most 2)?</li><li>Mean and variance of the count.</li><li>What's the smallest number of batters he must face so the chance of <em>at least one</em> first-pitch ball is at least 0.99?</li></ol>
+  <details class="hint"><summary>Hint</summary>(d): "at least one ball" = 1 − P(all strikes) = 1 − 0.6ⁿ. Solve for n with logs, then round the right way.</details>
+  <details class="sol"><summary>Solution</summary>
+    (a) C(8, 5) · 0.6⁵ · 0.4³ = 56 × 0.07776 × 0.064 = <strong>0.2787</strong>.<br>
+    (b) P(0) + P(1) + P(2) = 0.00066 + 0.00786 + 0.04129 = <strong>0.0498</strong>.<br>
+    (c) Mean = 8 × 0.6 = <strong>4.8</strong>; variance = 8 × 0.6 × 0.4 = <strong>1.92</strong>.<br>
+    (d) Need 1 − 0.6ⁿ ≥ 0.99, so 0.6ⁿ ≤ 0.01, so n ≥ ln 0.01 / ln 0.6 = 9.02. Round <em>up</em>: <strong>n = 10</strong>.
+    <span class="check">Check:</span> 0.6⁹ = 0.0101 (just misses) and 0.6¹⁰ = 0.0060 (works). Dividing by ln 0.6, a negative number, flips the inequality.
+  </details>
+</div>
+
+<!-- ============================ BLOCK B ============================ -->
+<h2 id="B">Block B: Poisson <span class="prio must">Must</span></h2>
+<p class="meta">Unlocks: "events happen at an average rate" questions, and approximating a binomial with large n and small p.</p>
+
+<div class="learn">
+  <h3>Learn it</h3>
+  <p><strong>Big idea.</strong> When events happen at random at a steady average rate (home runs per game, errors per inning), the count in a fixed window is Poisson. There's no fixed n: just the average count λ for <em>that</em> window.</p>
+  <p><strong>Formulas.</strong> <span class="eq">P(X = k) = e<sup>−λ</sup> λ<sup>k</sup> / k!</span>; <span class="eq">E[X] = Var(X) = λ</span>. Rate scales with the window: λ for 3 games = 3 × λ per game.</p>
+  <p><strong>Worked example.</strong> A team averages 2 stolen bases a game. P(exactly 2 in a game) = e<sup>−2</sup> · 2² / 2! = 0.1353 × 2 = <strong>0.2707</strong>.</p>
+  <p><strong>Traps.</strong> (1) Not rescaling λ to the window the question asks about. (2) 0! = 1, so P(0) = e<sup>−λ</sup>. (3) Using a Poisson where n is small and p isn't (then it's binomial).</p>
+  <p><strong>Recipe.</strong></p>
+  <ol><li>Find the rate and the window; λ = rate × window length.</li><li>"At least" → 1 − (the few terms below).</li><li>Plug in and check that the mean (= λ) is reasonable.</li></ol>
+</div>
+
+<div class="card">
+  <div class="head"><span class="tag L1">L1</span><h3>B1. A quiet game</h3><span class="meta">Poisson pmf at 0</span></div>
+  A team averages 1.2 home runs a game. What's the probability they hit none in a game?
+  <details class="hint"><summary>Hint</summary>k = 0 makes the formula very short.</details>
+  <details class="sol"><summary>Solution</summary>
+    P(0) = e<sup>−1.2</sup> = <strong>0.3012</strong>. <span class="check">Check:</span> about a third of games with no homer feels right for a 1.2 average.
+  </details>
+</div>
+
+<div class="card">
+  <div class="head"><span class="tag L2">L2</span><h3>B2. A three-game series</h3><span class="meta">rescale + complement</span></div>
+  Same team, a 3-game series. What's the probability of at least 2 home runs in the series?
+  <details class="hint"><summary>Hint</summary>New window, new λ. Then 1 − P(0) − P(1).</details>
+  <details class="sol"><summary>Solution</summary>
+    λ = 3 × 1.2 = 3.6. P(0) + P(1) = e<sup>−3.6</sup>(1 + 3.6) = 0.02732 × 4.6 = 0.1257. So P(X ≥ 2) = <strong>0.8743</strong>.
+    <span class="check">Check:</span> with 3.6 expected, fewer than 2 should be rare. It is (about 13%).
+  </details>
+</div>
+
+<div class="card">
+  <div class="head"><span class="tag L3">L3</span><h3>B3. A clean stretch</h3><span class="meta">set it up yourself</span></div>
+  A defence makes 0.5 errors a game on average. The coach brags about 4 straight games without an error. How likely was that by chance alone?
+  <details class="hint"><summary>Hint</summary>One window of 4 games, or four 1-game windows multiplied: both work.</details>
+  <details class="sol"><summary>Solution</summary>
+    λ = 4 × 0.5 = 2, so P(0) = e<sup>−2</sup> = <strong>0.1353</strong>. Equivalently (e<sup>−0.5</sup>)⁴, because the games are independent.
+    <span class="check">Check:</span> the two methods agree, which is a nice property of the Poisson.
+  </details>
+</div>
+
+<div class="card" id="B4">
+  <div class="head"><span class="tag L4">L4</span><h3>B4. Hit batters (test-style)</h3><span class="meta">binomial vs. Poisson approximation</span></div>
+  A pitcher hits the batter on 1% of plate appearances and faces 250 over a season.
+  <ol type="a"><li>Exact P(at most 1 hit batter), using the binomial.</li><li>The same with the Poisson approximation.</li><li>How far apart are they?</li><li>P(5 or more), exactly.</li></ol>
+  <details class="hint"><summary>Hint</summary>The Poisson approximation uses λ = np. Compare the two answers to 4 decimals.</details>
+  <details class="sol"><summary>Solution</summary>
+    (a) 0.99²⁵⁰ + 250 × 0.01 × 0.99²⁴⁹ = 0.08106 + 0.20469 = <strong>0.2858</strong>.<br>
+    (b) λ = 250 × 0.01 = 2.5: e<sup>−2.5</sup>(1 + 2.5) = <strong>0.2873</strong>.<br>
+    (c) A difference of <strong>0.0015</strong>: large n and small p make the Poisson a very good shortcut.<br>
+    (d) 1 − P(X ≤ 4) = <strong>0.1078</strong> (the Poisson gives 0.1088).
+    <span class="check">Check:</span> both models have mean 2.5, and the binomial variance (2.475) is just under the Poisson's (2.5).
+  </details>
+</div>
+
+</main>
+</body>
+</html>
